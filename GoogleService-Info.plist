@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>325417321001-lu7pj6kf7or9hmmtgn9mc7v1c250i9rq.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.325417321001-lu7pj6kf7or9hmmtgn9mc7v1c250i9rq</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBigTh2E-sqQJdtJAA-piyCZp2klBOIY5k</string>
+	<key>GCM_SENDER_ID</key>
+	<string>325417321001</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.natwol.historyqrcode</string>
+	<key>PROJECT_ID</key>
+	<string>luppy-climatisacao</string>
+	<key>STORAGE_BUCKET</key>
+	<string>luppy-climatisacao.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:325417321001:ios:bf1f655f0a8b91eee51238</string>
+	<key>DATABASE_URL</key>
+	<string>https://luppy-climatisacao.firebaseio.com</string>
+</dict>
+</plist>

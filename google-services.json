@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "325417321001",
+    "firebase_url": "https://luppy-climatisacao.firebaseio.com",
+    "project_id": "luppy-climatisacao",
+    "storage_bucket": "luppy-climatisacao.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325417321001:android:0fc428f140ba7ab6e51238",
+        "android_client_info": {
+          "package_name": "com.natwol.historyqrcode"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325417321001-4evlvjl5vocl0hj4jdkq7ik5ote3t74g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbRFfjmxPJc2_m9Gtn9gUSyL4gyY2lA1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325417321001-4evlvjl5vocl0hj4jdkq7ik5ote3t74g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
