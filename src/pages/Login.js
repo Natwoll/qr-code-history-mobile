@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 
-import * as GoogleSignIn from 'expo-google-sign-in';
+//import * as GoogleSignIn from 'expo-google-sign-in';
 
 import DefaultButton from '../components/DefaultButton';
 import DefaultInput from '../components/DefaultInput';
@@ -18,7 +18,7 @@ export default function Login({ navigation }) {
         navigation.navigate('Main')
     }
 
-    async function syncUser() {
+    /*async function syncUser() {
         const user = await GoogleSignIn.signInSilentlyAsync();
         //setUserstate
     };
@@ -55,7 +55,7 @@ export default function Login({ navigation }) {
         };
 
         init();
-    }, []);
+    }, []);*/
 
     return (
         <KeyboardAvoidingView enabled={Platform.OS === 'ios'} style={styles.container}>
