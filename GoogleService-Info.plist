@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>325417321001-lu7pj6kf7or9hmmtgn9mc7v1c250i9rq.apps.googleusercontent.com</string>
+	<string>1074835362322-ae15qqvujadevvc45ldf400cb3csukj1.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.325417321001-lu7pj6kf7or9hmmtgn9mc7v1c250i9rq</string>
+	<string>com.googleusercontent.apps.1074835362322-ae15qqvujadevvc45ldf400cb3csukj1</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBigTh2E-sqQJdtJAA-piyCZp2klBOIY5k</string>
+	<string>AIzaSyA3M7IqP_8ru5KGF8sCJD9eq-0pah-I4ko</string>
 	<key>GCM_SENDER_ID</key>
-	<string>325417321001</string>
+	<string>1074835362322</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.natwol.historyqrcode</string>
+	<string>com.natwol.luppy</string>
 	<key>PROJECT_ID</key>
-	<string>luppy-climatisacao</string>
+	<string>luppy-climatizacao</string>
 	<key>STORAGE_BUCKET</key>
-	<string>luppy-climatisacao.appspot.com</string>
+	<string>luppy-climatizacao.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:325417321001:ios:bf1f655f0a8b91eee51238</string>
+	<string>1:1074835362322:ios:237689bb628540b6c0fecb</string>
 	<key>DATABASE_URL</key>
-	<string>https://luppy-climatisacao.firebaseio.com</string>
+	<string>https://luppy-climatizacao.firebaseio.com</string>
 </dict>
 </plist>

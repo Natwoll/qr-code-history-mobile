@@ -24,16 +24,22 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.natwol.luppy",
       "supportsTablet": true,
       "config": {
         "googleSignIn": {
-          "reservedClientId": "325417321001-lu7pj6kf7or9hmmtgn9mc7v1c250i9rq.apps.googleusercontent.com"
+          "reservedClientId": "com.googleusercontent.apps.1074835362322-ae15qqvujadevvc45ldf400cb3csukj1"
         }
       }
     },
     "android": {
-      "package": "com.natwol.historyqrcode",
-      "googleServicesFile": "./google-services.json"
+      "package": "com.natwol.luppy",
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleSignIn": {
+          "certificateHash": "61:70:D6:7B:75:64:F9:6D:90:18:9D:18:EE:F4:44:A4:9E:65:81:92"
+        }
+      }
     }
   }
 }
