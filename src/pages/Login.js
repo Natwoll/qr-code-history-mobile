@@ -1,24 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View, KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 
 import * as GoogleSignIn from 'expo-google-sign-in';
 
 import DefaultButton from '../components/DefaultButton';
-import DefaultInput from '../components/DefaultInput';
 
 import { login } from '../services/auth';
 
 export default function Login({ navigation }) {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-
-    function handleLogin() {
-        console.log(username, password)
-        setUsername('');
-        setPassword('');
-
-        navigation.navigate('Main')
-    }
 
     async function syncUser() {
         const user = await GoogleSignIn.signInSilentlyAsync();
@@ -64,23 +53,7 @@ export default function Login({ navigation }) {
     return (
         <KeyboardAvoidingView enabled={Platform.OS === 'ios'} style={styles.container}>
             <View style={styles.loginForm}>
-                <DefaultInput
-                    placeholder="Seu usuário"
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    value={username}
-                    setValue={setUsername}
-                />
-                <DefaultInput
-                    placeholder="Sua senha"
-                    autoCorrect={false}
-                    autoCapitalize='none'
-                    secureTextEntry={true}
-                    value={password}
-                    setValue={setPassword}
-                />
-                <DefaultButton text="Entrar" onPress={handleLogin} />
-                <DefaultButton text="Entrar Google" onPress={signIn} style={{ marginTop: 20 }} />
+                <DefaultButton text="Entrar Google" onPress={signIn} />
             </View>
         </KeyboardAvoidingView>
     );
