@@ -4,6 +4,8 @@ import { View, StyleSheet, Picker } from 'react-native';
 import DefaultInput from '../components/DefaultInput';
 import DefaultButton from '../components/DefaultButton';
 
+import { select, insert } from '../services/api'
+
 export default function RegisterClient({ navigation }) {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
@@ -12,8 +14,15 @@ export default function RegisterClient({ navigation }) {
     const [machine, setMachine] = useState(0);
 
     function handleRegister() {
-        console.log(name, address, number, complement, machine)
-        const value = 'ksjkdsjf31la19djaksjd1092039123';
+        const value = '123465789';
+        const FbDocReference = 'clients/' + value;
+        
+        insert(FbDocReference, {
+            name: name,
+            address: address,
+            complement: complement,
+            machine: machine,
+        });
 
         navigation.navigate('QrCode', { value })
     }
