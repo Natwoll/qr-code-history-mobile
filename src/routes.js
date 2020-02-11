@@ -10,16 +10,16 @@ import QrCode from './pages/QrCode';
 
 const Routes = createAppContainer(
     createStackNavigator({
-        Main: {
-            screen: Main,
-            navigationOptions: {
-                title: ''
-            }
-        },
         Login: {
             screen: Login,
             navigationOptions: {
                 title: 'Login'
+            }
+        },
+        Main: {
+            screen: Main,
+            navigationOptions: {
+                title: ''
             }
         },
         NewHistory: {

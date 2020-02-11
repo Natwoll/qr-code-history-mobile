@@ -4,17 +4,36 @@ import { View, StyleSheet } from 'react-native';
 import DefaultInput from '../components/DefaultInput';
 import DefaultButton from '../components/DefaultButton';
 
-//Marca, Categoria, Capacidade, Tipo, Modelo
+import { select, insert } from '../services/api'
 
 export default function RegisterMachine() {
 
     const [brand, setBrand] = useState('');
     const [category, setCategory] = useState('');
     const [capacity, setCapacity] = useState('');
-    const [type, setType] = useState('');
+    const [kind, setKind] = useState('');
     const [model, setModel] = useState('');
+    const [identifier, setIdentifier] = useState('');
 
-    function handleRegister() {
+    async function handleRegister() {
+        const FbDocReferenceSerialMachines = 'serial/machines';
+
+        const { initials, times } = await select(FbDocReferenceSerialMachines);
+        const FbDocReferenceMachines = `machines/${initials + times}`;
+        
+        insert(FbDocReferenceMachines, {
+            brand,
+            capacity,
+            category,
+            identifier,
+            kind,
+            model
+        });
+
+        insert(FbDocReferenceSerialMachines , {
+            initials,
+            times: times + 1,
+        });
 
     }
 
@@ -46,8 +65,8 @@ export default function RegisterMachine() {
                     placeholder="Tipo"
                     autoCapitalize='words'
                     autoCorrect={false}
-                    value={type}
-                    setValue={setType}
+                    value={kind}
+                    setValue={setKind}
                 />
                 <DefaultInput
                     placeholder="Modelo"
@@ -55,6 +74,13 @@ export default function RegisterMachine() {
                     autoCorrect={false}
                     value={model}
                     setValue={setModel}
+                />
+                <DefaultInput
+                    placeholder="Identificador"
+                    autoCapitalize='words'
+                    autoCorrect={true}
+                    value={identifier}
+                    setValue={setIdentifier}
                 />
                 <DefaultButton text="Cadastrar" onPress={handleRegister} />
             </View>

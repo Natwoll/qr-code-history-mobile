@@ -4,6 +4,8 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 
 import DefaultButton from '../components/DefaultButton';
 
+import { isAuthenticated } from '../services/auth';
+
 const { width } = Dimensions.get('window');
 
 export default function Main({ navigation }) {
@@ -21,7 +23,7 @@ export default function Main({ navigation }) {
 
     function handleBarCodeScanned({ type, data }) {
         setScanned(true);
-        alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+        navigation.navigate('NewHistory', { qrCodeData: 'asd134' });
     }
 
     if (hasPermission === null)
@@ -35,9 +37,13 @@ export default function Main({ navigation }) {
                 scanned ? (
                     <>
                         <DefaultButton text="Escanear" onPress={() => setScanned(false)} style={{ marginTop: 20 }} />
-                        <DefaultButton text="Gerar Novo Histórico" onPress={() => navigation.navigate('NewHistory')} style={{ marginTop: 20 }} />
-                        <DefaultButton text="Cadastrar Máquina" onPress={() => navigation.navigate('RegisterMachine')} style={{ marginTop: 20 }} />
-                        <DefaultButton text="Cadastrar Cliente" onPress={() => navigation.navigate('RegisterClient')} style={{ marginTop: 20 }} />
+                        { 
+                            isAuthenticated() && 
+                            <>
+                                <DefaultButton text="Cadastrar Máquina" onPress={() => navigation.navigate('RegisterMachine')} style={{ marginTop: 20 }} />
+                                <DefaultButton text="Cadastrar Cliente" onPress={() => navigation.navigate('RegisterClient')} style={{ marginTop: 20 }} />
+                            </>
+                        }
                     </>
                 ) : (
                     <BarCodeScanner
@@ -91,12 +97,12 @@ const styles = StyleSheet.create({
     },
 
     layerCenter: {
-        flex: 1.3,
+        flex: 1.8,
         flexDirection: 'row',
     },
 
     focused: {
-        flex: 5,
+        flex: 10,
         width: width * 0.7
     },
 });

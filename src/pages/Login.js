@@ -1,59 +1,43 @@
-import React, { useEffect } from 'react';
-import { View, KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
-
-import * as GoogleSignIn from 'expo-google-sign-in';
+import React, { useState } from 'react';
+import { View, KeyboardAvoidingView, Platform, StyleSheet, Alert } from 'react-native';
 
 import DefaultButton from '../components/DefaultButton';
+import DefaultInput from '../components/DefaultInput';
 
 import { login } from '../services/auth';
 
+import { select } from '../services/api';
+
 export default function Login({ navigation }) {
 
-    async function syncUser() {
-        const user = await GoogleSignIn.signInSilentlyAsync();
-        await login(user);
-        navigation.navigate('Main')
-    };
+    const [password, setPassword] = useState('');
 
-    async function signOut() {
-        await GoogleSignIn.signOutAsync();
-        //set user state to null
-    }
+    async function handleLogin() {
+        if(password){
+            const { key } = await select('auth/admin');
 
-    async function signIn() {
-        try {
-            await GoogleSignIn.askForPlayServicesAsync();
-            const { type, user } = await GoogleSignIn.signInAsync();
-            if (type === 'success') {
-                syncUser();
+            if(key === password)
+                login(key);
+            else {
+                Alert.alert('Senha incorreta.', 'A senha de administrador está incorreta!');
+                return;
             }
-        } catch ({ message }) {
-            alert('login: Error:' + message);
-        }
-    };
-
-    useEffect(() => {
-        async function init() {
-            await GoogleSignIn.initAsync({
-                clientId: '1074835362322-ae15qqvujadevvc45ldf400cb3csukj1.apps.googleusercontent.com'
-            });
-
-            _syncUserWithState();
         }
 
-        async function _syncUserWithState() {
-            const user = await GoogleSignIn.signInSilentlyAsync();
-            await login(user);
-            navigation.navigate('Main')
-        };
-
-        init();
-    }, []);
+        navigation.navigate('Main');
+    }
 
     return (
         <KeyboardAvoidingView enabled={Platform.OS === 'ios'} style={styles.container}>
             <View style={styles.loginForm}>
-                <DefaultButton text="Entrar Google" onPress={signIn} />
+                <DefaultInput 
+                    placeholder="Senha do administrador"
+                    value={password}
+                    setValue={setPassword}
+                    secureTextEntry={true}
+                    autoCorrect={false}
+                />
+                <DefaultButton text="Entrar" onPress={handleLogin} />
             </View>
         </KeyboardAvoidingView>
     );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Picker } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import DefaultInput from '../components/DefaultInput';
 import DefaultButton from '../components/DefaultButton';
@@ -13,18 +13,24 @@ export default function RegisterClient({ navigation }) {
     const [complement, setComplement] = useState('');
     const [machine, setMachine] = useState(0);
 
-    function handleRegister() {
-        const value = '123465789';
-        const FbDocReference = 'clients/' + value;
+    async function handleRegister() {
+        const FbDocReferenceSerialClients = 'serial/clients';
+
+        const { initials, times } = await select(FbDocReferenceSerialClients);
+        const FbDocReferenceClients = `clients/${initials + times}`;
         
-        insert(FbDocReference, {
-            name: name,
-            address: address,
-            complement: complement,
-            machine: machine,
+        insert(FbDocReferenceClients, {
+            name,
+            address,
+            complement,
         });
 
-        navigation.navigate('QrCode', { value })
+        insert(FbDocReferenceSerialClients , {
+            initials,
+            times: times + 1,
+        });
+
+        navigation.navigate('QrCode', { value: 123 })
     }
 
     useEffect(() => {
@@ -73,17 +79,6 @@ export default function RegisterClient({ navigation }) {
                     />
                 </View>
 
-                <Picker 
-                    selectedValue={machine}
-                    onValueChange={value => setMachine(value)}
-                    style={styles.dropdown}
-                    itemStyle={styles.dropdownItem}
-                >
-                    <Picker.Item label="Selecione uma Maquina" value={0}/>
-                    <Picker.Item label="Maquina 1" value={1}/>
-                    <Picker.Item label="Maquina 2" value={2}/>
-                </Picker>
-
                 <DefaultButton text="Cadastrar" onPress={handleRegister} />
             </View>
         </View>
@@ -105,11 +100,5 @@ const styles = StyleSheet.create({
     inputGroup: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-    },
-
-    dropdown: {
-        marginBottom: 50,
-        width: '100%',
-        backgroundColor: '#fff',
     },
 })

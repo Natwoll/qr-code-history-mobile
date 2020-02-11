@@ -14,33 +14,41 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const firestore = firebase.firestore();
 
-export function select (FbDocReference){
+export async function select(FbDocReference) {
     const FbDocument = firestore.doc(FbDocReference);
 
-    FbDocument.get()
-    .then((doc) => {
-        if(doc && doc.exists)
-            return doc.data();
-    })
-    .catch((error) => {
-        console.log('could not get: ', error);
-    });
+    const document = await FbDocument.get();
+
+    return document.data() || {};
 };
 
-export function insert (FbDocReference, FbDocumentContent){
+export async function getAll(FbCollectionReference) {
+    const FbCollection = firestore.collection(FbCollectionReference);
+
+    const collection = await FbCollection.get().then(querySnap => querySnap);
+
+    const collectionArr = [];
+
+    collection.forEach(doc => {
+        collectionArr.push({ id: doc.id, data: doc.data() });
+    });
+
+    return collectionArr;
+}
+
+export function insert(FbDocReference, FbDocumentContent) {
     const FbDocument = firestore.doc(FbDocReference);
 
-
     FbDocument.set(FbDocumentContent)
-    .then((doc) => {
-        if (doc && doc.exists) {
-            console.log('insert failed for key:',FbDocReference,';Alredy exists.');
-            return
-        }
+        .then((doc) => {
+            if (doc && doc.exists) {
+                console.log('insert failed for key:', FbDocReference, ';Alredy exists.');
+                return
+            }
 
-        console.log('action insert complete for key: ', FbDocReference, '; value: ', FbDocumentContent);
-    })
-    .catch((error) => {
-        console.log('could not complete: ', error);
-    });
+            console.log('action insert complete for key: ', FbDocReference, '; value: ', FbDocumentContent);
+        })
+        .catch((error) => {
+            console.log('could not complete: ', error);
+        });
 };
