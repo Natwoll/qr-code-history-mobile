@@ -10,6 +10,7 @@ const { width } = Dimensions.get('window');
 
 export default function Main({ navigation }) {
     const [hasPermission, setHasPermission] = useState(null);
+    const [hasAdminPermission, setHasAdminPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
 
     useEffect(() => {
@@ -18,12 +19,21 @@ export default function Main({ navigation }) {
             setHasPermission(status === 'granted');
         }
 
+        async function loadAdminPermissions() {
+            const has = await isAuthenticated();
+
+            console.log(has);
+
+            setHasAdminPermission(has);
+        }
+
         requestPermissions();
+        loadAdminPermissions();
     }, []);
 
     function handleBarCodeScanned({ type, data }) {
         setScanned(true);
-        navigation.navigate('NewHistory', { qrCodeData: 'asd134' });
+        navigation.navigate('NewHistory', { qrCodeData: data });
     }
 
     if (hasPermission === null)
@@ -37,8 +47,8 @@ export default function Main({ navigation }) {
                 scanned ? (
                     <>
                         <DefaultButton text="Escanear" onPress={() => setScanned(false)} style={{ marginTop: 20 }} />
-                        { 
-                            isAuthenticated() && 
+                        {
+                            hasAdminPermission && 
                             <>
                                 <DefaultButton text="Cadastrar Máquina" onPress={() => navigation.navigate('RegisterMachine')} style={{ marginTop: 20 }} />
                                 <DefaultButton text="Cadastrar Cliente" onPress={() => navigation.navigate('RegisterClient')} style={{ marginTop: 20 }} />

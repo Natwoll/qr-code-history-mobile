@@ -1,5 +1,7 @@
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import React from 'react';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './pages/Login';
 import Main from './pages/Main';
@@ -8,54 +10,53 @@ import RegisterMachine from './pages/RegisterMachine';
 import RegisterClient from './pages/RegisterClient';
 import QrCode from './pages/QrCode';
 
-const Routes = createAppContainer(
-    createStackNavigator({
-        Login: {
-            screen: Login,
-            navigationOptions: {
-                title: 'Login'
-            }
-        },
-        Main: {
-            screen: Main,
-            navigationOptions: {
-                title: ''
-            }
-        },
-        NewHistory: {
-            screen: NewHistory,
-            navigationOptions: {
-                title: 'Cadastrar Histórico'
-            }
-        },
-        RegisterClient: {
-            screen: RegisterClient,
-            navigationOptions: {
-                title: 'Cliente'
-            }
-        },
-        RegisterMachine: {
-            screen: RegisterMachine,
-            navigationOptions: {
-                title: 'Máquina'
-            }
-        },
-        QrCode: {
-            screen: QrCode,
-            navigationOptions: {
-                title: 'QR Code'
-            }
-        },
-        
-    }, {
-        defaultNavigationOptions: {
-            headerTintColor: '#FFF',
-            headerBackTitleVisible: false,
-            headerStyle: {
-                backgroundColor: '#2ff595'
-            }
-        }
-    })
-)
+export default function Routes() {
+    const { Navigator, Screen } = createStackNavigator();
 
-export default Routes;
+    const screenOptions = {
+        headerTintColor: '#FFF',
+        headerBackTitleVisible: false,
+        headerStyle: {
+            backgroundColor: '#2ff595'
+        },
+    };
+
+    return (
+        <NavigationContainer>
+            <Navigator
+                screenOptions={screenOptions}
+            >
+                <Screen
+                    name="Login"
+                    component={Login}
+                    options={{ title: 'Login' }}
+                />
+                <Screen
+                    name="Main"
+                    component={Main}
+                    options={{ title: '' }}
+                />
+                <Screen
+                    name="NewHistory"
+                    component={NewHistory}
+                    options={{ title: 'Cadastrar Histórico' }}
+                />
+                <Screen
+                    name="RegisterClient"
+                    component={RegisterClient}
+                    options={{ title: 'Cliente' }}
+                />
+                <Screen
+                    name="RegisterMachine"
+                    component={RegisterMachine}
+                    options={{ title: 'Máquina' }}
+                />
+                <Screen
+                    name="QrCode"
+                    component={QrCode}
+                    options={{ title: 'QR Code' }}
+                />
+            </Navigator>
+        </NavigationContainer>
+    );
+}

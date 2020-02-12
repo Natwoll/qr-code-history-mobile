@@ -1,11 +1,11 @@
 import { AsyncStorage } from 'react-native';
 
-export const USER_KEY = 'user'
-export const isAuthenticated = async () => await AsyncStorage.getItem(USER_KEY);
-export const getUserId = async () => await AsyncStorage.getItem(USER_KEY);
-export const login = async user => {
-    await AsyncStorage.setItem(USER_KEY, user);
+export const ADMIN_KEY = 'admin'
+export const isAuthenticated = async () => await AsyncStorage.getItem(ADMIN_KEY);
+export const getUserId = async () => await AsyncStorage.getItem(ADMIN_KEY);
+export const login = async admin => {
+    await AsyncStorage.setItem(ADMIN_KEY, admin);
 };
 export const logout = async () => {
-    await AsyncStorage.removeItem(USER_KEY);
+    await AsyncStorage.removeItem(ADMIN_KEY);
 };
