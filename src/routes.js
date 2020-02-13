@@ -8,7 +8,6 @@ import Main from './pages/Main';
 import NewHistory from './pages/NewHistory';
 import RegisterMachine from './pages/RegisterMachine';
 import RegisterClient from './pages/RegisterClient';
-import QrCode from './pages/QrCode';
 
 export default function Routes() {
     const { Navigator, Screen } = createStackNavigator();
@@ -50,11 +49,6 @@ export default function Routes() {
                     name="RegisterMachine"
                     component={RegisterMachine}
                     options={{ title: 'Máquina' }}
-                />
-                <Screen
-                    name="QrCode"
-                    component={QrCode}
-                    options={{ title: 'QR Code' }}
                 />
             </Navigator>
         </NavigationContainer>

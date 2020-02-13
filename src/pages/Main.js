@@ -22,8 +22,6 @@ export default function Main({ navigation }) {
         async function loadAdminPermissions() {
             const has = await isAuthenticated();
 
-            console.log(has);
-
             setHasAdminPermission(has);
         }
 

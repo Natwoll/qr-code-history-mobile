@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
+import { useHeaderHeight } from '@react-navigation/stack';
 import { View, KeyboardAvoidingView, Platform, StyleSheet, Alert } from 'react-native';
 
 import DefaultButton from '../components/DefaultButton';
@@ -45,7 +46,7 @@ export default function Login({ navigation }) {
     
 
     return (
-        <KeyboardAvoidingView enabled={Platform.OS === 'ios'} style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset={useHeaderHeight() + 20}>
             <View style={styles.loginForm}>
                 <DefaultInput
                     placeholder="Senha do administrador"

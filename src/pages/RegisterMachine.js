@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, View, StyleSheet, Alert } from 'react-native';
+
+import { useHeaderHeight } from '@react-navigation/stack';
 
 import DefaultInput from '../components/DefaultInput';
 import DefaultButton from '../components/DefaultButton';
 
 import { select, insert } from '../services/api'
 
-export default function RegisterMachine() {
+export default function RegisterMachine({ navigation }) {
 
     const [brand, setBrand] = useState('');
     const [category, setCategory] = useState('');
@@ -20,7 +22,7 @@ export default function RegisterMachine() {
 
         const { initials, times } = await select(FbDocReferenceSerialMachines);
         const FbDocReferenceMachines = `machines/${initials + times}`;
-        
+
         insert(FbDocReferenceMachines, {
             brand,
             capacity,
@@ -30,16 +32,33 @@ export default function RegisterMachine() {
             model
         });
 
-        insert(FbDocReferenceSerialMachines , {
+        insert(FbDocReferenceSerialMachines, {
             initials,
             times: times + 1,
         });
 
+        Alert.alert('Máquina cadastrada com sucesso!');
+
+        setBrand('');
+        setCategory('');
+        setCapacity('');
+        setKind('');
+        setModel('');
+        setIdentifier('');
+
+        navigation.navigate('Main');
     }
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset={useHeaderHeight()}>
             <View style={styles.registerForm}>
+                <DefaultInput
+                    placeholder="Identificador"
+                    autoCapitalize='words'
+                    autoCorrect={true}
+                    value={identifier}
+                    setValue={setIdentifier}
+                />
                 <DefaultInput
                     placeholder="Marca"
                     autoCapitalize='words'
@@ -75,16 +94,9 @@ export default function RegisterMachine() {
                     value={model}
                     setValue={setModel}
                 />
-                <DefaultInput
-                    placeholder="Identificador"
-                    autoCapitalize='words'
-                    autoCorrect={true}
-                    value={identifier}
-                    setValue={setIdentifier}
-                />
                 <DefaultButton text="Cadastrar" onPress={handleRegister} />
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 

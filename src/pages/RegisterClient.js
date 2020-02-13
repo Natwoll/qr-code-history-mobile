@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, View, StyleSheet, Alert } from 'react-native';
+
+import { useHeaderHeight } from '@react-navigation/stack';
 
 import DefaultInput from '../components/DefaultInput';
 import DefaultButton from '../components/DefaultButton';
@@ -8,41 +10,40 @@ import { select, insert } from '../services/api'
 
 export default function RegisterClient({ navigation }) {
     const [name, setName] = useState('');
-    const [address, setAddress] = useState('');
+    const [street, setStreet] = useState('');
     const [number, setNumber] = useState('');
-    const [complement, setComplement] = useState('');
-    const [machine, setMachine] = useState(0);
+    const [contact, setContact] = useState('');
 
     async function handleRegister() {
         const FbDocReferenceSerialClients = 'serial/clients';
 
         const { initials, times } = await select(FbDocReferenceSerialClients);
         const FbDocReferenceClients = `clients/${initials + times}`;
-        
+
         insert(FbDocReferenceClients, {
             name,
-            address,
-            complement,
+            street,
+            number,
+            contact,
         });
 
-        insert(FbDocReferenceSerialClients , {
+        insert(FbDocReferenceSerialClients, {
             initials,
             times: times + 1,
         });
 
-        navigation.navigate('QrCode', { value: 123 })
+        Alert.alert('Cliente cadastrado com sucesso!');
+
+        setName('');
+        setStreet('');
+        setNumber('');
+        setContact('');
+
+        navigation.navigate('Main');
     }
 
-    useEffect(() => {
-        async function loadMachines() {
-            //search from api all machines
-        }
-
-        loadMachines();
-    })
-
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset={useHeaderHeight() + 20}>
             <View style={styles.registerForm}>
                 <DefaultInput
                     placeholder="Nome"
@@ -53,13 +54,23 @@ export default function RegisterClient({ navigation }) {
                     style={{ marginTop: 20 }}
                 />
                 <DefaultInput
-                    placeholder="Endereço"
+                    placeholder="Contato"
                     autoCapitalize='words'
                     autoCorrect={true}
-                    value={address}
-                    setValue={setAddress}
+                    value={contact}
+                    setValue={setContact}
+
                 />
+
                 <View style={styles.inputGroup}>
+                    <DefaultInput
+                        placeholder="Rua"
+                        autoCapitalize='words'
+                        autoCorrect={true}
+                        value={street}
+                        setValue={setStreet}
+                        style={{ width: '67%' }}
+                    />
                     <DefaultInput
                         placeholder="Número"
                         autoCapitalize='none'
@@ -69,19 +80,12 @@ export default function RegisterClient({ navigation }) {
                         setValue={setNumber}
                         style={{ width: '28%' }}
                     />
-                    <DefaultInput
-                        placeholder="Complemento"
-                        autoCapitalize='words'
-                        autoCorrect={true}
-                        value={complement}
-                        setValue={setComplement}
-                        style={{ width: '67%' }}
-                    />
+
                 </View>
 
                 <DefaultButton text="Cadastrar" onPress={handleRegister} />
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 

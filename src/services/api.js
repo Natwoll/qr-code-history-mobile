@@ -22,10 +22,18 @@ export async function select(FbDocReference) {
     return document.data() || {};
 };
 
+export async function selectWithId(FbDocReference) {
+    const FbDocument = firestore.doc(FbDocReference);
+
+    const document = await FbDocument.get();
+
+    return { id: document.id, data: document.data() } || {};
+};
+
 export async function getAll(FbCollectionReference) {
     const FbCollection = firestore.collection(FbCollectionReference);
 
-    const collection = await FbCollection.get().then(querySnap => querySnap);
+    const collection = await FbCollection.get();
 
     const collectionArr = [];
 
@@ -34,6 +42,22 @@ export async function getAll(FbCollectionReference) {
     });
 
     return collectionArr;
+}
+
+export async function selectOneWithWhere(FbCollectionReference, field, predicate, value) {
+    const FbCollection = firestore.collection(FbCollectionReference);
+
+    const collection = await FbCollection.where(field, predicate, value).get();
+
+    let docData = {};
+
+    collection.forEach(doc => {
+        docData = { 
+            id: doc.id, 
+            data: doc.data(),
+        };
+    });
+    return docData;
 }
 
 export function insert(FbDocReference, FbDocumentContent) {
@@ -51,4 +75,24 @@ export function insert(FbDocReference, FbDocumentContent) {
         .catch((error) => {
             console.log('could not complete: ', error);
         });
+};
+
+export function insertAdd(FbCollectionReference, FbDocumentContent) {
+    const FbCollection = firestore.collection(FbCollectionReference);
+
+    return FbCollection.add(FbDocumentContent);
+        then((doc) => {
+            if (doc && doc.exists) {
+                console.log('insert failed for key:', FbDocReference, ';Alredy exists.');
+                return
+            }
+
+            console.log('action insert complete for key: ', FbDocReference, '; value: ', FbDocumentContent);
+            docResponse = doc;
+        })
+        .catch((error) => {
+            console.log('could not complete: ', error);
+        });
+
+    
 };
